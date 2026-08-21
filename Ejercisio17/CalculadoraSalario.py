@@ -10,7 +10,13 @@ class CalculadoraSalario:
         return self.salarioBase + self.calcularPagoExtra()
 
 
-salario = CalculadoraSalario(1000, 5)
+# Pedir datos al usuario
+salarioBase = float(input("Ingrese el salario base: "))
+horasExtra = int(input("Ingrese las horas extra: "))
 
+# Crear el objeto
+salario = CalculadoraSalario(salarioBase, horasExtra)
+
+# Mostrar resultados
 print("Pago por horas extra:", salario.calcularPagoExtra())
 print("Salario total:", salario.calcularSalarioTotal())
