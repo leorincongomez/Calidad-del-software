@@ -7,12 +7,9 @@ class CalculadoraVelocidad:
         return self.distancia / self.tiempo
 
 
-# Prueba
-distancia = float(input("Ingrese la distancia recorrida en kilometros: "))
-tiempo = float(input("Ingrese el tiempo en horas: "))
-
-calculadora = CalculadoraVelocidad(distancia, tiempo)
-
-velocidad = calculadora.calcularVelocidadMedia()
-
-print("La velocidad media es:", velocidad, "km/h")
+if __name__ == "__main__":
+    distancia = float(input("Ingrese la distancia recorrida en kilometros: "))
+    tiempo = float(input("Ingrese el tiempo en horas: "))
+    calculadora = CalculadoraVelocidad(distancia, tiempo)
+    velocidad = calculadora.calcularVelocidadMedia()
+    print("La velocidad media es:", velocidad, "km/h")

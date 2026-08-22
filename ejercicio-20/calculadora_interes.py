@@ -12,15 +12,12 @@ class CalculadoraInteres:
         return self.capital + self.calcularInteres()
 
 
-# ingresar los datos
-capital = float(input("Ingrese el capital: "))
-tasa = float(input("Ingrese la tasa de interés (%): "))
-tiempo = float(input("Ingrese el tiempo en años: "))
-
-# Crear el objeto
-calculadora = CalculadoraInteres(capital, tasa, tiempo)
-
-# Mostrar resultados
-print("\n--- RESULTADOS ---")
-print("Interés generado:", calculadora.calcularInteres())
-print("Monto final:", calculadora.calcularMonto())
+if __name__ == "__main__":
+    # ingresar los datos
+    capital = float(input("Ingrese el capital: "))
+    tasa = float(input("Ingrese la tasa de interés (%): "))
+    tiempo = float(input("Ingrese el tiempo en años: "))
+    calculadora = CalculadoraInteres(capital, tasa, tiempo)
+    print("\n--- RESULTADOS ---")
+    print("Interés generado:", calculadora.calcularInteres())
+    print("Monto final:", calculadora.calcularMonto())

@@ -1,9 +1,12 @@
-from calculadora_triangulo import CalculadoraTriangulo
+import unittest
+from calculadoraTriangulo import CalculadoraTriangulo
 
-triangulo = CalculadoraTriangulo(base=6, altura=4)
+class TestCalculadoraTriangulo(unittest.TestCase):
+    def test_calcular_area(self):
+        triangulo = CalculadoraTriangulo(base=6, altura=4)
+        area = triangulo.calcularArea()
+        print(f"  [ManuelVillaquiran - Triángulo base=6, altura=4] Área: {area} (Esperado: 12)")
+        self.assertEqual(area, 12)
 
-area = triangulo.calcularArea()
-print(f"Área del triángulo: {area}")
-
-assert triangulo.calcularArea() == 12, "Error: el área no coincide"
-print("Prueba exitosa")
+if __name__ == '__main__':
+    unittest.main()
