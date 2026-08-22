@@ -8,13 +8,10 @@ class CalculadoraIMC:
 
 
 
-# Recibe datos del usuario
-peso = float(input("Ingrese el peso (kg): "))
-altura = float(input("Ingrese la altura (m): "))
-
-calculadora = CalculadoraIMC(peso, altura)
-
-# Obtener el IMC
-imc = calculadora.obtenerIndice()
-
-print("El IMC es:", imc)
+if __name__ == "__main__":
+    # Recibe datos del usuario
+    peso = float(input("Ingrese el peso (kg): "))
+    altura = float(input("Ingrese la altura (m): "))
+    calculadora = CalculadoraIMC(peso, altura)
+    imc = calculadora.obtenerIndice()
+    print("El IMC es:", imc)
