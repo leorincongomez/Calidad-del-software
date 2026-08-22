@@ -1,209 +1,768 @@
-import os
-import sys
-import re
-import subprocess
-import time
-from concurrent.futures import ThreadPoolExecutor
+class CalculadoraBasica:
 
-# Configurar encoding UTF-8 para la consola en Windows
-if hasattr(sys.stdout, 'reconfigure'):
+    def sumar(self, numero1, numero2):
+        return numero1 + numero2
+
+    def restar(self, numero1, numero2):
+        return numero1 - numero2
+
+
+class CalculadoraAreaCuadrado:
+
+    def __init__(self, lado):
+        self.lado = lado
+
+    def calcularArea(self):
+        return self.lado * self.lado
+
+    def calcularPerimetro(self):
+        return 4 * self.lado
+
+
+class ConversorTemperatura:
+
+    def __init__(self, celsius):
+        self.celsius = celsius
+
+    def aFahrenheit(self):
+        return self.celsius * 9 / 5 + 32
+
+    def aKelvin(self):
+        return self.celsius + 273.15
+
+
+class EstadisticaSimple:
+
+    def __init__(self, num1, num2, num3):
+        self.num1 = num1
+        self.num2 = num2
+        self.num3 = num3
+
+    def calcularPromedio(self):
+        return (self.num1 + self.num2 + self.num3) / 3
+
+
+class CalculadoraIVA:
+
+    def __init__(self, precioBase):
+        self.precioBase = precioBase
+
+    def obtenerIVA(self):
+        return self.precioBase * 0.21
+
+    def precioTotal(self):
+        return self.precioBase + self.obtenerIVA()
+
+
+class OperacionesPotencia:
+
+    def __init__(self, base, exponente):
+        self.base = base
+        self.exponente = exponente
+
+    def calcularPotencia(self):
+        resultado = 1
+
+        for i in range(self.exponente):
+            resultado = resultado * self.base
+
+        return resultado
+
+    def calcularCuadrado(self):
+        return self.base * self.base
+
+
+class CalculadoraDescuentos:
+
+    def __init__(self, precio, porcentaje):
+        self.precio = precio
+        self.porcentaje = porcentaje
+
+    def montoDescuento(self):
+        return self.precio * self.porcentaje / 100
+
+    def precioFinal(self):
+        return self.precio - self.montoDescuento()
+
+
+class GeometriaCirculo:
+
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.1416 * self.radio ** 2
+
+    def circunferencia(self):
+        return 2 * 3.1416 * self.radio
+
+
+class ConvertidorMedidas:
+
+    def __init__(self, metros):
+        self.metros = metros
+
+    def aCentimetros(self):
+        return self.metros * 100
+
+    def aKilometros(self):
+        return self.metros / 1000
+
+
+class CalculadoraTriangulo:
+
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+
+    def calcularArea(self):
+        return (self.base * self.altura) / 2
+
+
+class AhorroPersonal:
+
+    def __init__(self, saldoInicial):
+        self.saldoInicial = saldoInicial
+
+    def agregarInteres(self, tasa):
+        self.saldoInicial += self.saldoInicial * (tasa / 100)
+        return self.saldoInicial
+
+    def previsionAnual(self, tasa, anios=1):
+        saldo = self.saldoInicial
+
+        for _ in range(anios):
+            saldo += saldo * (tasa / 100)
+
+        return saldo
+
+
+class CalculadoraIMC:
+
+    def __init__(self, peso, altura):
+        self.peso = peso
+        self.altura = altura
+
+    def obtenerIndice(self):
+        return self.peso / (self.altura ** 2)
+
+
+class RepartidorGastos:
+
+    def __init__(self, totalFactura, numeroPersonas):
+        self.totalFactura = totalFactura
+        self.numeroPersonas = numeroPersonas
+
+    def divisionEquitativa(self):
+        return self.totalFactura / self.numeroPersonas
+
+
+class CalculadoraVelocidad:
+
+    def __init__(self, distancia, tiempo):
+        self.distancia = distancia
+        self.tiempo = tiempo
+
+    def calcularVelocidadMedia(self):
+        return self.distancia / self.tiempo
+
+
+class AnalisisNumerico:
+
+    def __init__(self, numero):
+        self.numero = numero
+
+    def esPar(self):
+        return self.numero % 2 == 0
+
+    def obtenerDoble(self):
+        return self.numero * 2
+
+
+class CalculadoraFactura:
+
+    def __init__(self, precio, cantidad, descuento):
+        self.precio = precio
+        self.cantidad = cantidad
+        self.descuento = descuento
+
+    def calcularSubtotal(self):
+        return self.precio * self.cantidad
+
+    def calcularDescuento(self):
+        subtotal = self.calcularSubtotal()
+        return subtotal * self.descuento / 100
+
+    def calcularTotal(self):
+        subtotal = self.calcularSubtotal()
+        descuento = self.calcularDescuento()
+        return subtotal - descuento
+
+
+class CalculadoraSalario:
+
+    def __init__(self, salarioBase, horasExtra):
+        self.salarioBase = salarioBase
+        self.horasExtra = horasExtra
+
+    def calcularPagoExtra(self):
+        return self.horasExtra * 10
+
+    def calcularSalarioTotal(self):
+        return self.salarioBase + self.calcularPagoExtra()
+
+
+class CalculadoraCombustible:
+
+    def __init__(self, distancia, consumo_por_km):
+        self.distancia = distancia
+        self.consumo_por_km = consumo_por_km
+
+    def calcularCombustibleNecesario(self):
+        return self.distancia * self.consumo_por_km
+
+    def calcularCostoViaje(self, precio_litro):
+        litros_necesarios = self.calcularCombustibleNecesario()
+        return litros_necesarios * precio_litro
+
+
+class CalculadoraDistancia:
+
+    def __init__(self, distanciaInicial, distanciaFinal):
+        self.distanciaInicial = distanciaInicial
+        self.distanciaFinal = distanciaFinal
+
+    def calcularDistancia(self):
+        return self.distanciaFinal - self.distanciaInicial
+
+
+class CalculadoraInteres:
+
+    def __init__(self, capital, tasa, tiempo):
+        self.capital = capital
+        self.tasa = tasa
+        self.tiempo = tiempo
+
+    def calcularInteres(self):
+        return self.capital * (self.tasa / 100) * self.tiempo
+
+    def calcularMonto(self):
+        return self.capital + self.calcularInteres()
+
+
+class CalculadoraPropina:
+
+    def __init__(self, total, porcentaje):
+        self.total = total
+        self.porcentaje = porcentaje
+
+    def calcularPropina(self):
+        return self.total * self.porcentaje / 100
+
+    def calcularTotal(self):
+        return self.total + self.calcularPropina()
+
+
+# =========================================================
+# FUNCIONES PARA PROBAR CADA CLASE
+# =========================================================
+
+def probarCalculadoraBasica():
+
+    print("\n--- CALCULADORA BÁSICA ---")
+
+    numero1 = float(input("Ingrese el primer número: "))
+    numero2 = float(input("Ingrese el segundo número: "))
+
+    calculadora = CalculadoraBasica()
+
+    print("Suma:", calculadora.sumar(numero1, numero2))
+    print("Resta:", calculadora.restar(numero1, numero2))
+
+
+def probarAreaCuadrado():
+
+    print("\n--- ÁREA Y PERÍMETRO DEL CUADRADO ---")
+
+    lado = float(input("Ingrese el lado del cuadrado: "))
+
+    cuadrado = CalculadoraAreaCuadrado(lado)
+
+    print("Área:", cuadrado.calcularArea())
+    print("Perímetro:", cuadrado.calcularPerimetro())
+
+
+def probarTemperatura():
+
+    print("\n--- CONVERSOR DE TEMPERATURA ---")
+
+    celsius = float(input("Ingrese la temperatura en Celsius: "))
+
+    temperatura = ConversorTemperatura(celsius)
+
+    print("Fahrenheit:", temperatura.aFahrenheit())
+    print("Kelvin:", temperatura.aKelvin())
+
+
+def probarEstadistica():
+
+    print("\n--- ESTADÍSTICA SIMPLE ---")
+
+    num1 = float(input("Ingrese el número 1: "))
+    num2 = float(input("Ingrese el número 2: "))
+    num3 = float(input("Ingrese el número 3: "))
+
+    estadistica = EstadisticaSimple(num1, num2, num3)
+
+    print("Promedio:", estadistica.calcularPromedio())
+
+
+def probarIVA():
+
+    print("\n--- CALCULADORA IVA ---")
+
+    precio = float(input("Ingrese el precio base: "))
+
+    calculadora = CalculadoraIVA(precio)
+
+    print("IVA (21%):", calculadora.obtenerIVA())
+    print("Precio total:", calculadora.precioTotal())
+
+
+def probarPotencia():
+
+    print("\n--- OPERACIONES DE POTENCIA ---")
+
+    base = int(input("Ingrese la base: "))
+    exponente = int(input("Ingrese el exponente: "))
+
+    operacion = OperacionesPotencia(base, exponente)
+
+    print("Potencia:", operacion.calcularPotencia())
+    print("Cuadrado:", operacion.calcularCuadrado())
+
+
+def probarDescuentos():
+
+    print("\n--- CALCULADORA DE DESCUENTOS ---")
+
+    precio = float(input("Ingrese el precio: "))
+    porcentaje = float(input("Ingrese el porcentaje de descuento: "))
+
+    descuento = CalculadoraDescuentos(precio, porcentaje)
+
+    print("Monto del descuento:", descuento.montoDescuento())
+    print("Precio final:", descuento.precioFinal())
+
+
+def probarCirculo():
+
+    print("\n--- GEOMETRÍA DEL CÍRCULO ---")
+
+    radio = float(input("Ingrese el radio: "))
+
+    circulo = GeometriaCirculo(radio)
+
+    print("Área:", circulo.area())
+    print("Circunferencia:", circulo.circunferencia())
+
+
+def probarMedidas():
+
+    print("\n--- CONVERTIDOR DE MEDIDAS ---")
+
+    metros = float(input("Ingrese los metros: "))
+
+    convertidor = ConvertidorMedidas(metros)
+
+    print("Centímetros:", convertidor.aCentimetros())
+    print("Kilómetros:", convertidor.aKilometros())
+
+
+def probarTriangulo():
+
+    print("\n--- ÁREA DEL TRIÁNGULO ---")
+
+    base = float(input("Ingrese la base: "))
+    altura = float(input("Ingrese la altura: "))
+
+    triangulo = CalculadoraTriangulo(base, altura)
+
+    print("Área:", triangulo.calcularArea())
+
+
+def probarAhorro():
+
+    print("\n--- AHORRO PERSONAL ---")
+
+    saldo = float(input("Ingrese el saldo inicial: "))
+    tasa = float(input("Ingrese la tasa de interés (%): "))
+    anios = int(input("Ingrese los años: "))
+
+    ahorro = AhorroPersonal(saldo)
+
+    print("Saldo después de agregar interés:",
+          ahorro.agregarInteres(tasa))
+
+    print("Previsión anual:",
+          ahorro.previsionAnual(tasa, anios))
+
+
+def probarIMC():
+
+    print("\n--- CALCULADORA IMC ---")
+
+    peso = float(input("Ingrese el peso en kg: "))
+    altura = float(input("Ingrese la altura en metros: "))
+
+    imc = CalculadoraIMC(peso, altura)
+
+    print("Índice de masa corporal:", imc.obtenerIndice())
+
+
+def probarGastos():
+
+    print("\n--- REPARTIDOR DE GASTOS ---")
+
+    factura = float(input("Ingrese el total de la factura: "))
+    personas = int(input("Ingrese el número de personas: "))
+
+    gastos = RepartidorGastos(factura, personas)
+
+    print("Cada persona debe pagar:",
+          gastos.divisionEquitativa())
+
+
+def probarVelocidad():
+
+    print("\n--- CALCULADORA DE VELOCIDAD ---")
+
+    distancia = float(input("Ingrese la distancia en km: "))
+    tiempo = float(input("Ingrese el tiempo en horas: "))
+
+    velocidad = CalculadoraVelocidad(distancia, tiempo)
+
+    print("Velocidad media:",
+          velocidad.calcularVelocidadMedia(), "km/h")
+
+
+def probarAnalisis():
+
+    print("\n--- ANÁLISIS NUMÉRICO ---")
+
+    numero = int(input("Ingrese un número: "))
+
+    analisis = AnalisisNumerico(numero)
+
+    print("¿Es par?:", analisis.esPar())
+    print("Doble:", analisis.obtenerDoble())
+
+
+def probarFactura():
+
+    print("\n--- CALCULADORA DE FACTURA ---")
+
+    precio = float(input("Ingrese el precio: "))
+    cantidad = int(input("Ingrese la cantidad: "))
+    descuento = float(input("Ingrese el descuento (%): "))
+
+    factura = CalculadoraFactura(precio, cantidad, descuento)
+
+    print("Subtotal:", factura.calcularSubtotal())
+    print("Descuento:", factura.calcularDescuento())
+    print("Total:", factura.calcularTotal())
+
+
+def probarSalario():
+
+    print("\n--- CALCULADORA DE SALARIO ---")
+
+    salarioBase = float(input("Ingrese el salario base: "))
+    horasExtra = int(input("Ingrese las horas extra: "))
+
+    salario = CalculadoraSalario(salarioBase, horasExtra)
+
+    print("Pago por horas extra:",
+          salario.calcularPagoExtra())
+
+    print("Salario total:",
+          salario.calcularSalarioTotal())
+
+
+def probarCombustible():
+
+    print("\n--- CALCULADORA DE COMBUSTIBLE ---")
+
+    distancia = float(input("Ingrese la distancia del viaje en km: "))
+    consumo = float(input("Ingrese el consumo de combustible por km: "))
+    precio = float(input("Ingrese el precio por litro: "))
+
+    combustible = CalculadoraCombustible(distancia, consumo)
+
+    print("Combustible necesario:",
+          combustible.calcularCombustibleNecesario())
+
+    print("Costo del viaje:",
+          combustible.calcularCostoViaje(precio))
+
+
+def probarDistancia():
+
+    print("\n--- CALCULADORA DE DISTANCIA ---")
+
+    inicial = float(input("Ingrese la distancia inicial: "))
+    final = float(input("Ingrese la distancia final: "))
+
+    distancia = CalculadoraDistancia(inicial, final)
+
+    print("Distancia recorrida:",
+          distancia.calcularDistancia())
+
+
+def probarInteres():
+
+    print("\n--- CALCULADORA DE INTERÉS ---")
+
+    capital = float(input("Ingrese el capital: "))
+    tasa = float(input("Ingrese la tasa de interés (%): "))
+    tiempo = float(input("Ingrese el tiempo en años: "))
+
+    interes = CalculadoraInteres(capital, tasa, tiempo)
+
+    print("Interés generado:",
+          interes.calcularInteres())
+
+    print("Monto final:",
+          interes.calcularMonto())
+
+
+def probarPropina():
+
+    print("\n--- CALCULADORA DE PROPINA ---")
+
+    total = float(input("Ingrese el total de la cuenta: "))
+    porcentaje = float(input("Ingrese el porcentaje de propina: "))
+
+    propina = CalculadoraPropina(total, porcentaje)
+
+    print("Propina:",
+          propina.calcularPropina())
+
+    print("Total con propina:",
+          propina.calcularTotal())
+
+
+# =========================================================
+# MENÚ PRINCIPAL
+# =========================================================
+
+def mostrarMenu():
+
+    print("\n")
+    print("=" * 50)
+    print("        MENÚ DE EJERCICIOS PYTHON")
+    print("=" * 50)
+
+    print("1.  Calculadora Básica")
+    print("2.  Área y Perímetro del Cuadrado")
+    print("3.  Conversor de Temperatura")
+    print("4.  Estadística Simple")
+    print("5.  Calculadora IVA")
+    print("6.  Operaciones de Potencia")
+    print("7.  Calculadora de Descuentos")
+    print("8.  Geometría del Círculo")
+    print("9.  Convertidor de Medidas")
+    print("10. Calculadora de Triángulo")
+    print("11. Ahorro Personal")
+    print("12. Calculadora IMC")
+    print("13. Repartidor de Gastos")
+    print("14. Calculadora de Velocidad")
+    print("15. Análisis Numérico")
+    print("16. Calculadora de Factura")
+    print("17. Calculadora de Salario")
+    print("18. Calculadora de Combustible")
+    print("19. Calculadora de Distancia")
+    print("20. Calculadora de Interés")
+    print("21. Calculadora de Propina")
+
+    print("-" * 50)
+    print("22. EJECUTAR TODAS")
+    print("0.  SALIR")
+    print("=" * 50)
+
+
+def ejecutarOpcion(opcion):
+
+    if opcion == 1:
+        probarCalculadoraBasica()
+
+    elif opcion == 2:
+        probarAreaCuadrado()
+
+    elif opcion == 3:
+        probarTemperatura()
+
+    elif opcion == 4:
+        probarEstadistica()
+
+    elif opcion == 5:
+        probarIVA()
+
+    elif opcion == 6:
+        probarPotencia()
+
+    elif opcion == 7:
+        probarDescuentos()
+
+    elif opcion == 8:
+        probarCirculo()
+
+    elif opcion == 9:
+        probarMedidas()
+
+    elif opcion == 10:
+        probarTriangulo()
+
+    elif opcion == 11:
+        probarAhorro()
+
+    elif opcion == 12:
+        probarIMC()
+
+    elif opcion == 13:
+        probarGastos()
+
+    elif opcion == 14:
+        probarVelocidad()
+
+    elif opcion == 15:
+        probarAnalisis()
+
+    elif opcion == 16:
+        probarFactura()
+
+    elif opcion == 17:
+        probarSalario()
+
+    elif opcion == 18:
+        probarCombustible()
+
+    elif opcion == 19:
+        probarDistancia()
+
+    elif opcion == 20:
+        probarInteres()
+
+    elif opcion == 21:
+        probarPropina()
+
+    elif opcion == 22:
+        ejecutarTodas()
+
+    else:
+        print("Opción no válida.")
+
+
+def pausar():
+
+    input("\nPresione ENTER para volver al menú...")
+
+
+def ejecutarTodas():
+
+    print("\n")
+    print("=" * 50)
+    print("       EJECUTANDO TODOS LOS EJERCICIOS")
+    print("=" * 50)
+
+    probarCalculadoraBasica()
+    pausar()
+
+    probarAreaCuadrado()
+    pausar()
+
+    probarTemperatura()
+    pausar()
+
+    probarEstadistica()
+    pausar()
+
+    probarIVA()
+    pausar()
+
+    probarPotencia()
+    pausar()
+
+    probarDescuentos()
+    pausar()
+
+    probarCirculo()
+    pausar()
+
+    probarMedidas()
+    pausar()
+
+    probarTriangulo()
+    pausar()
+
+    probarAhorro()
+    pausar()
+
+    probarIMC()
+    pausar()
+
+    probarGastos()
+    pausar()
+
+    probarVelocidad()
+    pausar()
+
+    probarAnalisis()
+    pausar()
+
+    probarFactura()
+    pausar()
+
+    probarSalario()
+    pausar()
+
+    probarCombustible()
+    pausar()
+
+    probarDistancia()
+    pausar()
+
+    probarInteres()
+    pausar()
+
+    probarPropina()
+    pausar()
+
+    print("\n")
+    print("=" * 50)
+    print("       TERMINARON TODOS LOS EJERCICIOS")
+    print("=" * 50)
+
+
+# =========================================================
+# PROGRAMA PRINCIPAL
+# =========================================================
+
+while True:
+
+    mostrarMenu()
+
     try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
+        opcion = int(input("Seleccione una opción: "))
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-def discover_exercises():
-    """
-    Escanea la carpeta del proyecto en busca de directorios de ejercicios.
-    Retorna un diccionario {numero_ejercicio: [(dir_path, test_file_path), ...]}
-    """
-    exercises = {}
-    
-    for root, dirs, files in os.walk(BASE_DIR):
-        dirs[:] = [d for d in dirs if not d.startswith('.') and d != '__pycache__']
-        
-        dir_name = os.path.basename(root)
-        match = re.search(r'ejercicio[_\-]?(\d+)', dir_name, re.IGNORECASE)
-        
-        if match:
-            num = int(match.group(1))
-            test_files = [f for f in files if f.startswith('test') and f.endswith('.py')]
-            if not test_files:
-                test_files = [f for f in files if f.endswith('.py') and ('test' in f.lower())]
-            
-            for tf in test_files:
-                tf_path = os.path.join(root, tf)
-                if num not in exercises:
-                    exercises[num] = []
-                exercises[num].append((root, tf_path))
-                
-    return dict(sorted(exercises.items()))
-
-def run_single_test(root_dir, test_file):
-    """
-    Ejecuta un archivo de prueba individual utilizando subprocess en su propio directorio.
-    """
-    rel_dir = os.path.relpath(root_dir, BASE_DIR)
-    test_basename = os.path.basename(test_file)
-    start_time = time.time()
-    
-    env = os.environ.copy()
-    env["PYTHONIOENCODING"] = "utf-8"
-
-    result = subprocess.run(
-        [sys.executable, "-m", "unittest", test_basename],
-        cwd=root_dir,
-        capture_output=True,
-        text=True,
-        env=env,
-        encoding='utf-8',
-        errors='replace'
-    )
-    
-    elapsed = time.time() - start_time
-    success = (result.returncode == 0)
-    output = result.stdout + result.stderr
-    
-    return {
-        "dir": rel_dir,
-        "file": test_basename,
-        "success": success,
-        "output": output,
-        "elapsed": elapsed
-    }
-
-def run_exercise_tests(num, exercises_dict):
-    """
-    Ejecuta las pruebas de un ejercicio específico.
-    """
-    if num not in exercises_dict:
-        print(f"\n[ERROR] El ejercicio #{num} no fue encontrado o no tiene pruebas configuradas.")
-        print(f"Ejercicios disponibles: {list(exercises_dict.keys())}")
-        return False
-
-    tests = exercises_dict[num]
-    print(f"\n==========================================")
-    print(f"  EJECUTANDO PRUEBAS: EJERCICIO {num}")
-    print(f"==========================================")
-    
-    all_success = True
-    for root_dir, test_file in tests:
-        rel_file = os.path.relpath(test_file, BASE_DIR)
-        print(f"\n--> Corriendo: {rel_file}")
-        res = run_single_test(root_dir, test_file)
-        
-        print(res["output"].strip())
-        status = "[EXITOSO]" if res["success"] else "[FALLIDO]"
-        print(f"Resultado: {status} ({res['elapsed']:.2f}s)\n")
-        
-        if not res["success"]:
-            all_success = False
-            
-    return all_success
-
-def run_all_tests_simultaneously(exercises_dict):
-    """
-    Ejecuta todos los tests de todos los ejercicios simultáneamente utilizando concurrencia.
-    """
-    print(f"\n==================================================")
-    print(f"  EJECUTANDO TODOS LOS EJERCICIOS SIMULTÁNEAMENTE  ")
-    print(f"==================================================")
-    
-    tasks = []
-    for num, tests in exercises_dict.items():
-        for root_dir, test_file in tests:
-            tasks.append((num, root_dir, test_file))
-            
-    start_total = time.time()
-    results = []
-    
-    with ThreadPoolExecutor(max_workers=min(len(tasks), 10)) as executor:
-        futures = {
-            executor.submit(run_single_test, root_dir, test_file): (num, root_dir, test_file)
-            for num, root_dir, test_file in tasks
-        }
-        
-        for future in futures:
-            num, root_dir, test_file = futures[future]
-            res = future.result()
-            res["num"] = num
-            results.append(res)
-            
-    total_elapsed = time.time() - start_total
-    
-    print("\n------------------- DETALLE DE RESULTADOS -------------------")
-    results.sort(key=lambda x: (x["num"], x["file"]))
-    
-    total_passed = 0
-    total_failed = 0
-    
-    for res in results:
-        status_symbol = "[PASÓ]" if res["success"] else "[FALLÓ]"
-        if res["success"]:
-            total_passed += 1
-        else:
-            total_failed += 1
-            
-        print(f"\n[Ejercicio #{res['num']}] Folder: {res['dir']} | Archivo: {res['file']} --> {status_symbol}")
-        if res["output"].strip():
-            indented = "   " + "\n   ".join(res["output"].strip().splitlines())
-            print(indented)
-            
-    print("\n==================================================")
-    print("                RESUMEN DE EJECUCIÓN              ")
-    print("==================================================")
-    print(f" Total de suites de pruebas ejecutadas: {len(results)}")
-    print(f"  - Pasaron:  {total_passed}")
-    print(f"  - Fallaron: {total_failed}")
-    print(f" Tiempo total de ejecución simultánea: {total_elapsed:.2f} segundos")
-    print("==================================================\n")
-
-def main():
-    exercises = discover_exercises()
-    
-    # Si se pasan argumentos por línea de comandos
-    if len(sys.argv) > 1:
-        arg = sys.argv[1].strip().lower()
-        if arg in ["todos", "all", "0"]:
-            run_all_tests_simultaneously(exercises)
-        elif arg.isdigit():
-            run_exercise_tests(int(arg), exercises)
-        else:
-            print(f"Opción no reconocida: '{arg}'")
-            print("Uso: python main.py [numero_ejercicio | todos]")
-        return
-
-    # Modo interactivo si no hay argumentos
-    while True:
-        print("\n==============================================")
-        print("    MENÚ DE PRUEBAS DE EJERCICIOS (TALLER 2)  ")
-        print("==============================================")
-        print(" Ejercicios disponibles:")
-        for num in exercises.keys():
-            print(f"   [{num}] Ejercicio #{num}")
-        print("\n Opciones especiales:")
-        print("   [0] Ejecutar TODOS los ejercicios simultáneamente")
-        print("   [q] Salir")
-        print("----------------------------------------------")
-        
-        try:
-            user_input = input("Ingrese el número del ejercicio a probar: ").strip().lower()
-        except (EOFError, KeyboardInterrupt):
-            print("\n¡Hasta luego!")
+        if opcion == 0:
+            print("\nPrograma finalizado.")
             break
-            
-        if user_input in ['q', 'salir', 'exit']:
-            print("¡Hasta luego!")
-            break
-        elif user_input in ['0', 'todos', 'all']:
-            run_all_tests_simultaneously(exercises)
-        elif user_input.isdigit():
-            num = int(user_input)
-            run_exercise_tests(num, exercises)
-        else:
-            print("\n[!] Entrada inválida. Ingrese un número de ejercicio, '0' o 'todos'.")
 
-if __name__ == "__main__":
-    main()
+        ejecutarOpcion(opcion)
+
+        if opcion != 22:
+            pausar()
+
+    except ValueError:
+        print("\nDebe ingresar un número válido.")
