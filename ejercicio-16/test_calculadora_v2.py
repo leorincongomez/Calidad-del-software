@@ -3,9 +3,9 @@ import unittest
 from calcular_factura_v2 import CalculadoraFactura
 
 
-class TestCalculadoraFactura(unittest.TestCase):
+class TestCalculadoraFactura(unittest.TestCase): 
     def test_calcular_subtotal(self):
-        factura = CalculadoraFactura(20000, 3, 10)
+        factura = CalculadoraFactura(20000, 3, 10) 
 
         self.assertEqual(factura.calcularSubtotal(), 60000)
 
